@@ -1,0 +1,35 @@
+
+version: "3"
+networks:
+  rabbitmq_go_net:
+    driver: bridge
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    volumes:
+      - /var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    env_file:
+      - ./rabbitmq.env
+    networks:
+      - rabbitmq_go_net
+
+  # nestjs:
+  #   container_name: wegowhere-chat-api
+  #   hostname: chat-api
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - "rabbitmq"
+  #   restart: on-failure:5
+  #   networks:
+  #     - rabbitmq_go_net
+
